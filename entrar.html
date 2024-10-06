@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Eventos</title>
+    <!--Estilos-->
+    <link rel="stylesheet" href="styles.css">
+    <!--Ícones-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+   <div class="page-container">
+        <div class="content">
+            <!-- Navbar -->
+            <div class="navbar-container">
+                <nav>
+                    <a href="index.html">
+                        <img src="img/logobetim.png" alt="Solicitação de Eventos" class="logo"/>
+                    </a>
+                    <div class="menu-btn">
+                        <i class="fa fa-bars fa-2x" onclick="menuShow()"></i>
+                    </div>
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="entrar.html">Entrar</a></li>
+                        <li><a href="cadastrar.html">Cadastrar</a></li>
+                    </ul>
+                </nav>  
+                <main>
+                    <div class="main-banner">
+                        <h1>Gestão de Eventos</h1>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <form>
+            <h3>Login</h3>
+            <input type="text" placeholder="E-mail" id="Login">
+            <input type="password" placeholder="Senha" id="Senha">
+        
+            <!-- Campo de seleção para tipo de usuário -->
+            <select id="userType">
+                <option value="" disabled selected>Selecione o tipo de usuário</option>
+                <option value="aluno">Aluno</option>
+                <option value="professor">Professor</option>
+                <option value="funcionario">Funcionário</option>
+            </select>
+        
+            <input type="submit" name="" id="" class="entrar" value="Entrar">
+        </form>
+
+         <!-- Rodapé -->
+         <footer class="site-footer">
+            <p>&copy2024</p>
+            <p>Criado por grupo de alunos do Curso de Sistemas de Informação da PUC Minas Virtual</p>
+        </footer>
+    </div>
+</body>
