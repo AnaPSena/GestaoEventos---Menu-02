@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão de Eventos</title>
     <!--Estilos-->
+    <link rel="stylesheet" href="evento.css">
     <link rel="stylesheet" href="styles.css">
     <!--Ícones-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
@@ -16,21 +17,123 @@
         <div class="content">
             <div class="navbar-container">
                 <nav>
-                    <a href="#">
+                    <a href="index.html">
                         <img src="img/logobetim.png" alt="Solicitação de Eventos" class="logo"/>
                     </a>
-                    <ul class="navbar-items">
-                        <li>
-                            <a href="index.html" class="btn-menu">Home</a>
-                        </li>
+                    <div class="menu-btn">
+                        <i class="fa fa-bars fa-2x" onclick="menuShow()"></i>
+                    </div>
+                    <ul>
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="entrar.html">Entrar</a></li>
+                        <li><a href="cadastrar.html">Cadastrar</a></li>
                     </ul>
                 </nav>
-                <main>
-                    <div class="main-banner">
-                        <h1>Solcitação de Eventos</h1>
+        
+            </div>
+            <div class="container-form">
+                <form class="evento-form">
+                    <!-- Nome e descrição do evento -->
+                    <p>Nome do Evento: <input type="text" name="Nome do Evento" id="nomeEvento"></p>
+                    <p>Descrição: <input type="text" name="Descrição" id="desc"></p>
+                    
+                    <!-- Data de início e fim do evento -->
+                    <div class="date-container">
+                        <p>Data de Início: <input type="date" name="dataInicio" id="dataInicio"></p>
+                        <p>Data de Fim: <input type="date" name="dataFim" id="dataFim"></p>
                     </div>
-                </main>
+
+                    <!-- Tipo de Evento -->
+                    <p>Tipo de Evento: 
+                        <select id="tipoEvento" name="tipoEvento">
+                            <option value="" disabled selected>Selecione o tipo de evento</option>
+                            <option value="institucional">Institucional (Setores PUC Betim)</option>
+                            <option value="graduacao">Graduação (Cursos PUC Betim)</option>
+                        </select>
+                    </p>
+                
+                
+                    <!-- Seleção de curso (oculto por padrão) -->
+                    <p id="cursoResponsavel" style="display:none;">
+                        Curso Responsável: 
+                        <select id="curso" name="curso">
+                            <option value="" disabled selected>Selecione o curso</option>
+                            <option value="curso01">Administração</option>
+                            <option value="curso02">Biomedicina</option>
+                            <option value="curso03">Direito manhã</option>
+                            <option value="curso04">Direito noite</option>
+                            <option value="curso05">Enfermagem</option>
+                            <option value="curso06">Fisioterapia</option>
+                            <option value="curso07">Medicina</option>
+                            <option value="curso08">Medicina Veterinária</option>
+                            <option value="curso09">Sistemas de Informação</option>
+                            <option value="curso10">Tec. Análise e Des. de Sistemas</option>
+                        </select>
+                    </p>
+                
+                    <!-- Seleção de setor (oculto por padrão) -->
+                    <p id="setorResponsavel" style="display:none;">
+                        Setor Responsável: 
+                        <select id="setor" name="setor">
+                            <option value="" disabled selected>Selecione o setor</option>
+                            <option value="setor01">Apoio Comunitário</option>
+                            <option value="setor02">Assessoria de Comunicação</option>
+                            <option value="setor03">Biblioteca</option>
+                            <option value="setor04">Central de Relacionamento</option>
+                            <option value="setor05">Coordenação</option>
+                            <option value="setor06">Clínica de Fisioterapia</option>
+                            <option value="setor07">Extensão</option>
+                            <option value="setor08">Financeiro</option>
+                            <option value="setor09">Infraestrutura</option>
+                            <option value="setor10">NUPSI</option>
+                            <option value="setor11">Pastoral</option>
+                            <option value="setor12">Pesquisa</option>
+                            <option value="setor13">Pró-Reitoria</option>
+                            <option value="setor14">Recursos Humanos</option>
+                            <option value="setor15">SAJ</option>
+                            <option value="setor16">Secretaria</option>
+                        </select>
+                    </p>
+                
+                    <!-- Título Outro curso/unidade participante -->
+                    <p id="outroCursoTitulo" style="display:none;">Outro curso/unidade participante:</p>
+                
+                    <!-- Opções Sim e Não -->
+                    <p id="outroCursoOpcoes" style="display:none;">
+                        <label class="radio-inline">
+                            <input type="radio" name="outroCurso" value="sim" id="outroCursoSim"> Sim
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="outroCurso" value="nao" id="outroCursoNao" checked> Não
+                        </label>
+                    </p>
+                
+                    <!-- Campo de texto para inserir outro curso/unidade -->
+                    <p id="campoOutroCurso" style="display:none;">
+                        Digite o curso/unidade: 
+                        <input type="text" id="outroCursoTexto" name="outroCursoTexto">
+                    </p>
+                    
+                    <!-- Campo para inserir palestras -->
+                    <div id="palestrasContainer">
+                        <div class="palestra">
+                            <p>Nome da Palestra: <input type="text" name="palestra[]" class="palestra-nome"></p>
+                            <div class="date-container">
+                                <p>Data de Início: <input type="date" name="dataInicio[]" class="data-inicio"></p>
+                                <p>Data de Fim: <input type="date" name="dataFim[]" class="data-fim"></p>
+                                <p>Horário de Início: <input type="time" name="horarioInicio[]" class="horario-inicio"></p>
+                                <p>Horário de Fim: <input type="time" name="horarioFim[]" class="horario-fim"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="addPalestra">Adicionar Palestra</button>
+                    
+                    <p><input type="submit" value="Enviar"></p>
+                </form>
             </div>
         </div>
     </div>
+        <!-- Scripts evento-->
+        <script src="evento.js"></script>
 </body>

@@ -180,7 +180,7 @@ h3 {
 }
 
 /* Centralizar o formulário na tela */
-form {
+.login-form {
     width: 380px;
     margin: 15% auto; /* Centraliza o formulário horizontalmente */
     padding: 20px;
@@ -192,7 +192,7 @@ form {
 }
 
 /* Estilo dos inputs e do select */
-input, select {
+.login-form input, select {
     display: block;
     margin: 10px auto; /* Centraliza os inputs horizontalmente */
     width: 300px;
