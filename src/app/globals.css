@@ -14,6 +14,11 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -341,5 +346,32 @@ input, select {
   .site-footer {
       font-size: 12px;
   }
+}
+
+/* Opcional: Centraliza o título e as opções (caso necessário) */
+p {
+  text-align: left; /* Ou center, se quiser centralizar o conteúdo */
+  margin-bottom: 10px; /* Espaçamento entre o título e as opções */
+}
+
+/* Estilo geral dos botões */
+button {
+  background-color: #4CAF50; /* Cor de fundo verde */
+  color: white; /* Cor do texto branco */
+  border: none; /* Remove bordas */
+  border-radius: 5px; /* Bordas arredondadas */
+  padding: 10px 15px; /* Espaçamento interno */
+  text-align: center; /* Centraliza o texto */
+  text-decoration: none; /* Remove sublinhado */
+  display: inline-block; /* Permite definir largura e altura */
+  font-size: 16px; /* Tamanho da fonte */
+  margin: 4px 2px; /* Margem em torno dos botões */
+  cursor: pointer; /* Altera o cursor ao passar o mouse */
+  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+/* Efeito de hover para todos os botões */
+button:hover {
+  background-color: #45a049; /* Verde mais escuro no hover */
 }
 

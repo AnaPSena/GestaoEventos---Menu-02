@@ -1,0 +1,70 @@
+.container-form {
+    background-color: #1976D2;
+    margin-top: -125px
+}
+
+
+/* Estilos para o formulário de cadastro de eventos */
+.evento-form {
+    width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: left;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 180px;
+}
+
+.evento-form input {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Centralizando os campos de data */
+.date-container {
+    display: flex;           /* Coloca os elementos na mesma linha */
+    gap: 20px;               /* Espaçamento entre os campos */
+    justify-content: center; /* Centraliza os campos horizontalmente */
+}
+
+.date-container p {
+    margin: 0;
+}
+
+/* Estilo para colocar os radio buttons lado a lado */
+.radio-inline {
+    display: inline-block;
+    margin-right: 10px;
+}
+/* Estilo para manter as opções lado a lado */
+.radio-inline {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Estilo do botão "Excluir Palestra" */
+.remove-palestra {
+    background-color: #f44336; /* Cor de fundo vermelho */
+}
+
+/* Estilo do botão "Adicionar Palestra" */
+#addPalestra {
+    background-color: #2196F3; /* Cor de fundo azul */
+}
+
+/* Efeito de hover específico para o botão "Excluir Palestra" */
+.remove-palestra:hover {
+    background-color: #d32f2f; /* Vermelho mais escuro no hover */
+}
+
+/* Efeito de hover específico para o botão "Adicionar Palestra" */
+#addPalestra:hover {
+    background-color: #1976D2; /* Azul mais escuro no hover */
+}
+
+

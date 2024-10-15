@@ -1,64 +1,89 @@
-// pages/events.js
-
-import Head from 'next/head';
+// pages/evento.js
 import Image from 'next/image';
-import localFont from "next/font/local";
+import styles from '../../styles/evento.module.css';
+import { useState } from 'react';
 
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+export default function Evento() {
+  const [showSetor, setShowSetor] = useState(false);
+  const [showCurso, setShowCurso] = useState(false);
+  const [showOutroCurso, setShowOutroCurso] = useState(false);
+  const [showCertificados, setShowCertificados] = useState(false);
 
-export default function Events() {
   return (
-    <>
-      <Head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Gestão de Eventos</title>
-        {/* Ícones */}
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </Head>
+    <div className={styles.pageContainer}>
+      <div className={styles.content}>
+        <div className={styles.navbarContainer}>
+          <nav>
+            <a href="/">
+              <Image
+                src="/img/logobetim.png"
+                alt="Solicitação de Eventos"
+                width={150}
+                height={50}
+                className={styles.logo}
+              />
+            </a>
+            <div className={styles.menuBtn}>
+              <i className="fa fa-bars fa-2x" onClick={() => {}}></i>
+            </div>
+            <ul>
+              <li><a href="/" className={styles.active}>Home</a></li>
+              <li><a href="/entrar">Entrar</a></li>
+              <li><a href="/cadastrar">Cadastrar</a></li>
+            </ul>
+          </nav>
+        </div>
 
-      <div className="page-container">
-        <div className="content">
-          <div className="navbar-container">
-            <nav>
-              <a href="#">
-                <Image
-                  src="/img/logobetim.png" // Coloque a imagem na pasta 'public/img'
-                  alt="Solicitação de Eventos"
-                  className="logo"
-                  width={100} // Defina a largura desejada
-                  height={50} // Defina a altura desejada
-                />
-              </a>
-              <ul className="navbar-items">
-                <li>
-                  <a href="index" className="btn-menu">Home</a>
-                </li>
-              </ul>
-            </nav>
-            <main>
-              <div className="main-banner">
-                <h1>Solicitação de Eventos</h1>
-              </div>
-            </main>
-          </div>
+        <div className={styles.containerForm}>
+          <form className={styles.eventoForm}>
+            {/* Nome e descrição do evento */}
+            <p>
+              Nome do Evento:
+              <input type="text" name="nomeEvento" id="nomeEvento" />
+            </p>
+            <p>Descrição: <input type="text" name="descricao" id="desc" /></p>
+
+            {/* Detalhes do evento */}
+            <div className={styles.eventDetails}>
+              <p>
+                Data de Início:
+                <input type="date" name="dataInicio" id="dataInicio" />
+              </p>
+              <p>
+                Data de Fim: <input type="date" name="dataFim" id="dataFim" />
+              </p>
+              <p>
+                Tipo de Evento:
+                <select id="tipoEvento" name="tipoEvento" onChange={() => {}}>
+                  <option value="" disabled selected>Selecione o tipo de evento</option>
+                  <option value="institucional">Institucional (Setores PUC Betim)</option>
+                  <option value="graduacao">Graduação (Cursos PUC Betim)</option>
+                </select>
+              </p>
+            </div>
+
+            {/* Campos adicionais como seleção de curso/setor serão controlados por useState */}
+            {/* Exemplo para mostrar/esconder: */}
+            {showCurso && (
+              <p id="cursoResponsavel">
+                Curso Responsável:
+                <select id="curso" name="curso">
+                  <option value="" disabled selected>Selecione o curso</option>
+                  <option value="curso01">Administração</option>
+                  <option value="curso02">Biomedicina</option>
+                  <option value="curso03">Direito manhã</option>
+                </select>
+              </p>
+            )}
+
+            {/* Outros elementos e lógica podem seguir o mesmo padrão */}
+
+            <div className={styles.btnEnviarContainer}>
+              <button type="submit" className={styles.btnEnviar}>Enviar</button>
+            </div>
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
