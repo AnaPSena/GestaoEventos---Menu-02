@@ -1,13 +1,45 @@
-// pages/evento.js
 import Image from 'next/image';
 import styles from '../../styles/evento.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Evento() {
   const [showSetor, setShowSetor] = useState(false);
   const [showCurso, setShowCurso] = useState(false);
   const [showOutroCurso, setShowOutroCurso] = useState(false);
   const [showCertificados, setShowCertificados] = useState(false);
+  const router = useRouter();
+
+  // Função para buscar dados da rota protegida
+  const fetchData = async () => {
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      // Se não houver token, redireciona para a página de login
+      router.push('/entrar');
+      return;
+    }
+
+    try {
+      const response = await axios.get('http://localhost:3000/evento', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log('Dados protegidos:', response.data);
+    } catch (error) {
+      console.error('Erro ao buscar dados protegidos:', error);
+      // Em caso de erro, redireciona para a página de login
+      router.push('/entrar');
+    }
+  };
+
+  // useEffect para executar a função de busca de dados protegidos ao carregar a página
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className={styles.pageContainer}>
@@ -63,7 +95,6 @@ export default function Evento() {
             </div>
 
             {/* Campos adicionais como seleção de curso/setor serão controlados por useState */}
-            {/* Exemplo para mostrar/esconder: */}
             {showCurso && (
               <p id="cursoResponsavel">
                 Curso Responsável:
@@ -75,8 +106,6 @@ export default function Evento() {
                 </select>
               </p>
             )}
-
-            {/* Outros elementos e lógica podem seguir o mesmo padrão */}
 
             <div className={styles.btnEnviarContainer}>
               <button type="submit" className={styles.btnEnviar}>Enviar</button>
