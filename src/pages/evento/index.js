@@ -62,6 +62,7 @@ export default function Evento() {
               <li><a href="/" className={styles.active}>Home</a></li>
               <li><a href="/entrar">Entrar</a></li>
               <li><a href="/cadastrar">Cadastrar</a></li>
+              <li><a href="/alterar-senha">Alterar Senha</a></li>
             </ul>
           </nav>
         </div>
