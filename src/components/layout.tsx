@@ -9,7 +9,9 @@ export default function Layout({
   return (
     <div className="bg-white flex flex-col min-h-screen">
       <Navbar />
-      <main className="bg-white flex-grow py-4 px-8">{children}</main>
+      <main className="bg-white flex-grow py-8 px-12 m-10">
+        {children}
+      </main>
       <Footer />
     </div>
   );
