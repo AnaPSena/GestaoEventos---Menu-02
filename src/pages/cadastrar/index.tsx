@@ -1,9 +1,11 @@
 import { RegisterSchema, registerSchema, registerUser } from "@/api/usuarios";
 import { Input } from "@/components/input";
+import { Option, Select } from "@/components/select";
+import Title from "@/components/title";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import { forwardRef, useState } from "react"
-import { useForm, SubmitHandler, UseFormRegister } from "react-hook-form"
+import { useState } from "react"
+import { useForm, SubmitHandler } from "react-hook-form"
 
 
 type ModalProps = {
@@ -31,7 +33,10 @@ const Modal = ({ toggleModal, isOpen }: ModalProps) => {
               </button>
               <div className="p-4 text-center">
                 <svg viewBox="0 0 24 24" className="mx-auto mb-4 w-14 h-14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 3.93552C14.795 3.33671 13.4368 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 11.662 20.9814 11.3283 20.9451 11M21 5L12 14L9 11" stroke="#26a269" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M16 3.93552C14.795 3.33671 13.4368 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 11.662 20.9814 11.3283 20.9451 11M21 5L12 14L9 11" stroke="#26a269" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                  </g>
                 </svg>
                 <p className="mb-4">Cadastro realizado com sucesso!</p>
                 <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="button"
@@ -49,27 +54,6 @@ const Modal = ({ toggleModal, isOpen }: ModalProps) => {
   );
 };
 
-type Option = {
-  value: string
-  key: string
-}
-// you can use React.forwardRef to pass the ref too
-const Select = forwardRef<
-  HTMLSelectElement,
-  { label: string, options: Option[] } & ReturnType<UseFormRegister<RegisterSchema>>
->(({ onChange, onBlur, name, label, options }, ref) => (
-  <>
-    <label className="block mb-2 text-md font-medium text-gray-900">{label}</label>
-    <select name={name} ref={ref} onChange={onChange} onBlur={onBlur} className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5">
-      {options.map(opt => (
-        <option key={opt.value} value={opt.value}>
-          {opt.key}
-        </option>
-      ))}
-    </select>
-  </>
-))
-
 export default function Register() {
   const {
     register,
@@ -85,14 +69,13 @@ export default function Register() {
     setIsOpen(!isOpen);
   };
 
-  //A função onSubmit chama a API
   const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
-    console.log(data)
-
     try {
-       await registerUser(data)
-       setIsOpen(true)
+      await registerUser(data)
+      setIsOpen(true)
     } catch (e) {
+      //TODO: Modal de erro
+      console.log(e)
     }
   }
 
@@ -104,10 +87,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="p-2 m-2">
-        <h1 className="text-2xl text-center">CADASTRO DE USUÁRIO</h1>
-      </div>
-      <button onClick={toggleModal}>Modal</button>
+      <Title>Cadastro de usuário</Title>
       <Modal toggleModal={toggleModal} isOpen={isOpen} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
