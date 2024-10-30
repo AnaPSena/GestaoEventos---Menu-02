@@ -1,5 +1,7 @@
 import { z } from "zod"
 import { api } from "./axios"
+import useSWR from "swr"
+import { fetcher } from "./fetcher"
 
 export type Usuario = {
   Id: number
@@ -47,4 +49,14 @@ export const login = async (data: LoginSchema) => {
   });
 
   return response;
+}
+
+export function useUsuario(id:string) {
+  const { data, error, isLoading } = useSWR(`https://localhost:44374/api/Usuarios/${id}`, fetcher)
+
+  return {
+      data: data,
+      error: error,
+      isLoading
+  }
 }

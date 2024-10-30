@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { useUserInfo } from "@/hooks/user"
+import { useUsuario } from '@/api/usuarios';
 
 export default function EditarSenha() {
   const router = useRouter();
@@ -11,42 +13,21 @@ export default function EditarSenha() {
     id: null,
     senha: '',
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
+  const { user } = useUserInfo()
+
+  const {data, isLoading, error} = useUsuario(user?.nameid)
+  
   useEffect(() => {
-    async function fetchUsuario() {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) throw new Error('Token de autenticação não encontrado.');
-
-        const response = await fetch('https://localhost:44374/api/Usuarios/19', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(`Erro ao buscar dados do usuário: ${errorText}`);
-        }
-        
-        const data = await response.json();
-        setUsuario({
-          ...data,
-          senha: '', 
-        });
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setError('Erro ao carregar dados do usuário. Verifique se o token de autenticação está correto.');
-        setLoading(false);
-      }
+    if (data) {
+      setUsuario({
+        ...data,
+        senha: '', 
+      });
     }
+  }, [data]);
 
-    fetchUsuario();
-  }, []);
+  console.log(data)
 
   const handleSenhaChange = (e) => {
     setUsuario({ ...usuario, senha: e.target.value });
@@ -85,7 +66,7 @@ export default function EditarSenha() {
     }
   };
 
-  if (loading) return <p>Carregando dados...</p>;
+  if (isLoading) return <p>Carregando dados...</p>;
   if (error) return <p>{error}</p>;
 
   return (

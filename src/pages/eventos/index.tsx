@@ -79,6 +79,11 @@ export default function Eventos() {
           Solicitar novo evento
         </Link>
       </div>
+      <div className="mt-10">
+        <Link className="py-2 px-3 text-white text-center rounded bg-astronaut-900 hover:bg-pizazz-600 md:border-0 md:p-2" href={`/alterar-senha`}>
+          Alterar Senha
+        </Link>
+      </div>
     </>
   )
 }
