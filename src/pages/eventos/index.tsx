@@ -66,7 +66,7 @@ const Table = ({ data }: TableProps) => {
 export default function Eventos() {
   const { user } = useUserInfo()
   const { data, error, isLoading } = useEventosPorUsuario(user?.nameid)
-  console.log(data)
+  console.log(user)
 
   return (
     <>

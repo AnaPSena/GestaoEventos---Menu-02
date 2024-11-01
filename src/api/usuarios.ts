@@ -51,12 +51,13 @@ export const login = async (data: LoginSchema) => {
   return response;
 }
 
-export function useUsuario(id:string) {
-  const { data, error, isLoading } = useSWR(`https://localhost:44374/api/Usuarios/${id}`, fetcher)
+export function useUsuario(id: string) {
+    const URL = `/Usuarios/${id}`
+    const { data, error, isLoading } = useSWR<Usuario>(URL, fetcher)
 
-  return {
-      data: data,
-      error: error,
-      isLoading
-  }
+    return {
+        data: data,
+        error: error,
+        isLoading
+    }
 }
