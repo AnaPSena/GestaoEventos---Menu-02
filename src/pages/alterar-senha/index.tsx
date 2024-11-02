@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useUserInfo } from "@/hooks/user"
+import { useUserInfo } from "@/hooks/user";
 import { useUsuario } from '@/api/usuarios';
-import Link from "next/link"
+import Link from "next/link";
 import Title from "@/components/title";
 import { Input } from "@/components/input";
 
@@ -17,20 +17,19 @@ export default function EditarSenha() {
     senha: '',
   });
 
-  const { user } = useUserInfo()
-
-  const {data, isLoading, error} = useUsuario(user?.nameid)
+  const { user } = useUserInfo();
+  const { data, isLoading, error } = useUsuario(user?.nameid);
 
   useEffect(() => {
     if (data) {
       setUsuario({
         ...data,
-        senha: '', 
+        senha: '',
       });
     }
   }, [data]);
 
-  console.log(data)
+  console.log(data);
 
   const handleSenhaChange = (e) => {
     setUsuario({ ...usuario, senha: e.target.value });
@@ -70,7 +69,7 @@ export default function EditarSenha() {
   };
 
   if (isLoading) return <p>Carregando dados...</p>;
-  if (error) return <p>{error}</p>;
+  if (error) return <p>{error.message || 'Erro desconhecido'}</p>; // Extraindo a mensagem de erro
 
   return (
     <div className="mt-10">
@@ -78,34 +77,46 @@ export default function EditarSenha() {
       <form onSubmit={handleSubmit} style={{ maxWidth: '300px', margin: '0 auto' }}>
         <div className="mb-4">
           <label>Nome:</label>
-          <input type="text" value={usuario.nome} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }} 
-          className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+          <input
+            type="text"
+            value={usuario.nome}
+            disabled
+            style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
+            className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
           />
         </div>
         <div className="mb-4">
           <label>Email:</label>
-          <input type="email" value={usuario.email} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
-          className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+          <input
+            type="email"
+            value={usuario.email}
+            disabled
+            style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
+            className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
           />
         </div>
         <div className="mb-4">
           <label>Perfil:</label>
-          <input type="text" value={usuario.perfilDescricao} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
-          className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+          <input
+            type="text"
+            value={usuario.perfilDescricao}
+            disabled
+            style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
+            className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
           />
         </div>
         <div>
-  <label>Nova Senha:</label>
-  <input
-    type="password"
-    name="ConfirmarSenha"
-    value={usuario.senha}
-    onChange={handleSenhaChange}
-    required
-    className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
-  />
-</div>
-<button
+          <label>Nova Senha:</label>
+          <input
+            type="password"
+            name="ConfirmarSenha"
+            value={usuario.senha}
+            onChange={handleSenhaChange}
+            required
+            className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+          />
+        </div>
+        <button
           type="submit"
           style={{
             backgroundColor: '#0070f3',
