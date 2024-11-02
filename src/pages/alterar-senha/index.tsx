@@ -116,19 +116,9 @@ export default function EditarSenha() {
             className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
           />
         </div>
-        <button
-          type="submit"
-          style={{
-            backgroundColor: '#0070f3',
-            color: '#fff',
-            padding: '10px 20px',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
-          Alterar Senha
-        </button>
+        <div className="p-2 m-8 text-center">
+        <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="submit">Alterar Senha</button>
+        </div>        
       </form>
     </div>
   );
