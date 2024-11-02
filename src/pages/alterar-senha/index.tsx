@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useUserInfo } from "@/hooks/user"
 import { useUsuario } from '@/api/usuarios';
+import Link from "next/link"
+import Title from "@/components/title";
+import { Input } from "@/components/input";
 
 export default function EditarSenha() {
   const router = useRouter();
@@ -17,7 +20,7 @@ export default function EditarSenha() {
   const { user } = useUserInfo()
 
   const {data, isLoading, error} = useUsuario(user?.nameid)
-  
+
   useEffect(() => {
     if (data) {
       setUsuario({
@@ -59,7 +62,7 @@ export default function EditarSenha() {
       }
 
       alert('Senha alterada com sucesso!');
-      router.push('/evento');
+      router.push('/eventos');
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -70,51 +73,43 @@ export default function EditarSenha() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>Alterar Senha</h1>
+    <div className="mt-10">
+      <Title>Alterar senha</Title>
       <form onSubmit={handleSubmit} style={{ maxWidth: '300px', margin: '0 auto' }}>
-        <div>
+        <div className="mb-4">
           <label>Nome:</label>
-          <input type="text" value={usuario.nome} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }} />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={usuario.email} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }} />
-        </div>
-        <div>
-          <label>Perfil:</label>
-          <input type="text" value={usuario.perfilDescricao} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }} />
-        </div>
-        <div>
-          <label>Nova Senha:</label>
-          <input
-            type="password"
-            value={usuario.senha}
-            onChange={handleSenhaChange}
-            required
-            style={{
-              display: 'block',
-              width: '100%',
-              marginBottom: '15px',
-              padding: '10px',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-            }}
+          <input type="text" value={usuario.nome} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }} 
+          className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
           />
         </div>
-        <button
-          type="submit"
-          style={{
-            backgroundColor: '#0070f3',
-            color: '#fff',
-            padding: '10px 20px',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-          }}
-        >
+        <div className="mb-4">
+          <label>Email:</label>
+          <input type="email" value={usuario.email} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
+          className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+          />
+        </div>
+        <div className="mb-4">
+          <label>Perfil:</label>
+          <input type="text" value={usuario.perfilDescricao} disabled style={{ display: 'block', width: '100%', marginBottom: '10px', padding: '8px' }}
+          className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+          />
+        </div>
+        <div>
+  <label>Nova Senha:</label>
+  <input
+    type="password"
+    name="ConfirmarSenha"
+    value={usuario.senha}
+    onChange={handleSenhaChange}
+    required
+    className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
+  />
+</div>
+        <div className="mt-10 flex justify-center">
+        <Link className="py-2 px-3 text-white text-center rounded bg-astronaut-900 hover:bg-pizazz-600 md:border-0 md:p-2" href={`/alterar-senha`}>
           Alterar Senha
-        </button>
+        </Link>
+      </div>
       </form>
     </div>
   );
