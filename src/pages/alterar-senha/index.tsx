@@ -117,7 +117,7 @@ export default function EditarSenha() {
           />
         </div>
         <div className="p-2 m-8 text-center">
-        <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="submit">Alterar Senha</button>
+        <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="submit">Alterar senha</button>
         </div>        
       </form>
     </div>
