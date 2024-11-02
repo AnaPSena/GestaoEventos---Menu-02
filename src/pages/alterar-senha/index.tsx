@@ -105,11 +105,19 @@ export default function EditarSenha() {
     className="bg-astronaut-50 border border-astronaut-300 text-gray-900 text-sm rounded-lg focus:ring-astronaut-500 focus:border-astronaut-500 block w-full p-2.5"
   />
 </div>
-        <div className="mt-10 flex justify-center">
-        <Link className="py-2 px-3 text-white text-center rounded bg-astronaut-900 hover:bg-pizazz-600 md:border-0 md:p-2" href={`/alterar-senha`}>
+<button
+          type="submit"
+          style={{
+            backgroundColor: '#0070f3',
+            color: '#fff',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
           Alterar Senha
-        </Link>
-      </div>
+        </button>
       </form>
     </div>
   );
