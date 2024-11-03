@@ -11,11 +11,15 @@ import { useForm, SubmitHandler } from "react-hook-form"
 type ModalProps = {
   toggleModal: () => void,
   isOpen: boolean
+  condition: "success" | "error" | undefined
 }
 
-//TODO: Consertar o Modal
-const Modal = ({ toggleModal, isOpen }: ModalProps) => {
+const Modal = ({ toggleModal, isOpen, condition }: ModalProps) => {
   const router = useRouter()
+
+  if (!condition) {
+    return
+  }
 
   return (
     <div>
@@ -32,19 +36,39 @@ const Modal = ({ toggleModal, isOpen }: ModalProps) => {
                 <span className="sr-only">Fechar modal</span>
               </button>
               <div className="p-4 text-center">
-                <svg viewBox="0 0 24 24" className="mx-auto mb-4 w-14 h-14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                  <g id="SVGRepo_iconCarrier">
-                    <path d="M16 3.93552C14.795 3.33671 13.4368 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 11.662 20.9814 11.3283 20.9451 11M21 5L12 14L9 11" stroke="#26a269" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                  </g>
-                </svg>
-                <p className="mb-4">Cadastro realizado com sucesso!</p>
-                <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="button"
-                  onClick={() => {
-                    toggleModal()
-                    router.push("/entrar")
-                  }}
-                >Entrar</button>
+                {condition === "success" &&
+                  <>
+                    <svg viewBox="0 0 24 24" className="mx-auto mb-4 w-14 h-14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path d="M16 3.93552C14.795 3.33671 13.4368 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 11.662 20.9814 11.3283 20.9451 11M21 5L12 14L9 11" stroke="#26a269" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                      </g>
+                    </svg>
+                    <p className="mb-4">Cadastro realizado com sucesso!</p>
+                    <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="button"
+                      onClick={() => {
+                        toggleModal()
+                        router.push("/entrar")
+                      }}
+                    >Entrar</button>
+                  </>
+                }
+                {condition === "error" &&
+                  <>
+                    <svg viewBox="0 0 24 24" className="mx-auto mb-4 w-14 h-14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path d="M16 3.93552C14.795 3.33671 13.4368 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 11.662 20.9814 11.3283 20.9451 11M21 5L12 14L9 11" stroke="#26a269" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                      </g>
+                    </svg>
+                    <p className="mb-4">Algo deu errado!</p>
+                    <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="button"
+                      onClick={() => {
+                        toggleModal()
+                      }}
+                    >Fechar</button>
+                  </>
+                }
               </div>
             </div>
           </div>
@@ -64,6 +88,7 @@ export default function Register() {
   })
 
   const [isOpen, setIsOpen] = useState(false);
+  const [condition, setCondition] = useState<"success" | "error">();
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -72,10 +97,11 @@ export default function Register() {
   const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
     try {
       await registerUser(data)
+      setCondition("success");
       setIsOpen(true)
     } catch (e) {
-      //TODO: Modal de erro
-      console.log(e)
+      setCondition("error");
+      setIsOpen(true)
     }
   }
 
@@ -88,32 +114,38 @@ export default function Register() {
   return (
     <>
       <Title>Cadastro de usuário</Title>
-      <Modal toggleModal={toggleModal} isOpen={isOpen} />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <Input label="Nome" path="Nome" placeholder="Ex: João" register={register} required />
-          {errors.Nome && <span className="text-red-500 text-sm">{errors.Nome.message}</span>}
-        </div>
-        <div className="mb-4">
-          <Input label="E-mail" path="Email" placeholder="Ex: joao@pucminas.br" register={register} required type="email" />
-          {errors.Email && <span className="text-red-500 text-sm">{errors.Email.message}</span>}
-        </div>
-        <div className="mb-4">
-          <Input label="Senha" path="Senha" register={register} required type="password" />
-          {errors.Senha && <span className="text-red-500 text-sm">{errors.Senha.message}</span>}
-        </div>
-        <div className="mb-4">
-          <Input label="Confirmar a senha" path="ConfirmarSenha" register={register} type="password" />
-          {errors.ConfirmarSenha && <span className="text-red-500 text-sm">{errors.ConfirmarSenha.message}</span>}
-        </div>
-        <div className="mb-4">
-          <Select label="Tipo de usuário" {...register("Perfil", { required: true })} options={opts} />
-          {errors.Perfil && <span className="text-red-500 text-sm">{errors.Perfil.message}</span>}
-        </div>
-        <div className="p-2 m-10 text-center">
-          <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="submit">Cadastrar</button>
-        </div>
-      </form>
+      <Modal toggleModal={toggleModal} isOpen={isOpen} condition={condition} />
+      <div className="p-4 mx-10">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid md:grid-cols-2 md:gap-6">
+            <div className="relative z-0 w-full mb-5 group">
+              <Input label="Nome" path="Nome" placeholder="Ex: João" register={register} required />
+              {errors.Nome && <span className="text-red-500 text-sm">{errors.Nome.message}</span>}
+            </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <Input label="E-mail" path="Email" placeholder="Ex: joao@pucminas.br" register={register} required type="email" />
+              {errors.Email && <span className="text-red-500 text-sm">{errors.Email.message}</span>}
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 md:gap-6">
+            <div className="relative z-0 w-full mb-5 group">
+              <Input label="Senha" path="Senha" register={register} required type="password" />
+              {errors.Senha && <span className="text-red-500 text-sm">{errors.Senha.message}</span>}
+            </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <Input label="Confirmar a senha" path="ConfirmarSenha" register={register} type="password" />
+              {errors.ConfirmarSenha && <span className="text-red-500 text-sm">{errors.ConfirmarSenha.message}</span>}
+            </div>
+          </div>
+          <div className="mb-5">
+            <Select label="Tipo de usuário" {...register("Perfil", { required: true })} options={opts} />
+            {errors.Perfil && <span className="text-red-500 text-sm">{errors.Perfil.message}</span>}
+          </div>
+          <div className="p-2 m-10 text-center">
+            <button className="bg-astronaut-800 text-white rounded-md hover:bg-pizazz-500 p-2" type="submit">Cadastrar</button>
+          </div>
+        </form>
+      </div>
     </>
   );
 }

@@ -33,3 +33,14 @@ export function useLocais() {
     isLoading
   }
 }
+
+export function useLocal(id: string) {
+  const URL = `Locais/${id}`
+  const { data, error, isLoading } = useSWR<Local>(URL, fetcher)
+
+  return {
+    data: data,
+    error: error,
+    isLoading
+  }
+}
