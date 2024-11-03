@@ -1,4 +1,6 @@
 import Head from "next/head";
+import Title from "@/components/title";
+
 
 export default function Home() {
   const menuShow = () => {
@@ -29,40 +31,14 @@ export default function Home() {
         <div className="content">
           {/* Navbar */}
           <div className="navbar-container">
-            <nav>
-              <a href="/">
-                <img
-                  src="/img/logobetim.png"
-                  alt="Solicitação de Eventos"
-                  className="logo"
-                />
-              </a>
-              <div className="menu-btn" onClick={menuShow}>
-                <i className="fa fa-bars fa-2x"></i>
-              </div>
-              <ul>
-                <li>
-                  <a href="/" className="active">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="/entrar">Entrar</a>
-                </li>
-                <li>
-                  <a href="/cadastrar">Cadastrar</a>
-                </li>
-              </ul>
-            </nav>
           </div>
 
           {/* Banner Principal */}
           <main>
-            <div className="main-banner">
-              <h1>SOLICITAÇÃO DE EVENTOS</h1>
-            </div>
-          </main>
-
+        <div className="main-banner">
+        <Title>Sistema agendamento eventos</Title>
+        </div>
+      </main>
           {/* Conteúdo Principal */}
           <div className="shrink">
             <div className="box">
@@ -87,13 +63,6 @@ export default function Home() {
         </div>
 
         {/* Rodapé */}
-        <footer className="site-footer">
-          <p>&copy; 2024</p>
-          <p>
-            Criado por grupo de alunos do Curso de Sistemas de Informação da PUC
-            Minas Virtual
-          </p>
-        </footer>
       </div>
     </>
   );
